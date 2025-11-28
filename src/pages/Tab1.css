@@ -1,0 +1,61 @@
+.location-container {
+  padding: 16px;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
+}
+
+.no-data {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.coordinate-item {
+  text-align: center;
+  padding: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Location history styles */
+.location-history {
+  margin-top: 16px;
+}
+
+.history-item {
+  border-left: 3px solid var(--ion-color-primary);
+  padding-left: 12px;
+  margin-bottom: 12px;
+}
+
+.timestamp {
+  font-size: 0.8em;
+  color: var(--ion-color-medium);
+}
+
+.coordinates {
+  font-weight: 500;
+}
