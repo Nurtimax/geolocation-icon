@@ -1,0 +1,7 @@
+{
+  "name": "geolocation-icon",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
