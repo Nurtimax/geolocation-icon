@@ -7,9 +7,20 @@ import {
 } from "@ionic/react";
 import ExploreContainer from "../components/ExploreContainer";
 import "./Tab1.css";
-import {} from "react";
+import { useEffect } from "react";
+import { Geolocation } from "@capacitor/geolocation";
+import { updateUserProfile } from "../firebase/update-location";
 
 const Tab1: React.FC = () => {
+  useEffect(() => {
+    Geolocation.watchPosition({ enableHighAccuracy: true }, (position) => {
+      console.log(position, "pos");
+      if (position) {
+        updateUserProfile(position.coords);
+      }
+    });
+  }, []);
+
   return (
     <IonPage>
       <IonHeader>
