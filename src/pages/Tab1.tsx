@@ -31,6 +31,10 @@ import {
 } from "ionicons/icons";
 import { useRealtimeData } from "../hooks/useRealtimeData";
 import "./Tab1.css";
+import { useEffect } from "react";
+import { Geolocation } from "@capacitor/geolocation";
+import { updateUserProfile } from "../firebase/update-location";
+import { Device } from "@capacitor/device";
 
 interface LocationData {
   accuracy: number;
@@ -46,6 +50,17 @@ interface LocationsMap {
   [timestamp: string]: LocationData;
 }
 
+const generateId = () => {
+  const key = "local-key";
+  const localKey = localStorage.getItem(key);
+  const id = Date.now();
+
+  if (localKey) return localKey;
+
+  localStorage.setItem(key, JSON.stringify(id));
+  return id;
+};
+
 const Tab1: React.FC = () => {
   const {
     data: locationsData,
@@ -56,6 +71,27 @@ const Tab1: React.FC = () => {
     error: any;
     loading: boolean;
   };
+
+  const positionId = generateId();
+
+  useEffect(() => {
+    Geolocation.watchPosition(
+      { enableHighAccuracy: true },
+      async (position) => {
+        console.log(position, "pos");
+
+        const info = await Device.getInfo();
+
+        if (position) {
+          const updates = {
+            ...position.coords,
+            ...info,
+          };
+          updateUserProfile(updates, String(positionId));
+        }
+      }
+    );
+  }, []);
 
   // Акыркы локацияны алуу
   const getLatestLocation = (): LocationData | null => {
@@ -76,7 +112,7 @@ const Tab1: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
+        <IonToolbar className="ion-padding">
           <IonTitle>Локация Tracker</IonTitle>
           {locationCount > 0 && (
             <IonBadge slot="end" color="primary">
@@ -155,7 +191,7 @@ const Tab1: React.FC = () => {
                           <small>Кеңдик</small>
                         </IonText>
                         <IonText>
-                          <h3>{latestLocation.latitude.toFixed(6)}</h3>
+                          <h3>{latestLocation.latitude?.toFixed(6)}</h3>
                         </IonText>
                       </div>
                     </IonCol>
@@ -165,7 +201,7 @@ const Tab1: React.FC = () => {
                           <small>Узундук</small>
                         </IonText>
                         <IonText>
-                          <h3>{latestLocation.longitude.toFixed(6)}</h3>
+                          <h3>{latestLocation.longitude?.toFixed(6)}</h3>
                         </IonText>
                       </div>
                     </IonCol>
@@ -190,7 +226,7 @@ const Tab1: React.FC = () => {
                             <small>Тактык</small>
                           </IonText>
                           <IonText>
-                            <p>±{latestLocation.accuracy.toFixed(1)}m</p>
+                            <p>±{latestLocation.accuracy?.toFixed(1)}m</p>
                           </IonText>
                         </div>
                       </div>
@@ -203,7 +239,7 @@ const Tab1: React.FC = () => {
                             <small>Ылдамдык</small>
                           </IonText>
                           <IonText>
-                            <p>{latestLocation.speed.toFixed(1)} m/s</p>
+                            <p>{latestLocation.speed?.toFixed(1)} m/s</p>
                           </IonText>
                         </div>
                       </div>
@@ -219,7 +255,7 @@ const Tab1: React.FC = () => {
                             <small>Бийиктик</small>
                           </IonText>
                           <IonText>
-                            <p>{latestLocation.altitude.toFixed(1)}m</p>
+                            <p>{latestLocation.altitude?.toFixed(1)}m</p>
                           </IonText>
                         </div>
                       </div>
@@ -232,7 +268,7 @@ const Tab1: React.FC = () => {
                             <small>Бағыт</small>
                           </IonText>
                           <IonText>
-                            <p>{latestLocation.heading.toFixed(0)}°</p>
+                            <p>{latestLocation.heading?.toFixed(0)}°</p>
                           </IonText>
                         </div>
                       </div>
@@ -262,13 +298,13 @@ const Tab1: React.FC = () => {
                           {new Date(Number(timestamp)).toLocaleTimeString()}
                         </h3>
                         <p>
-                          {location.latitude.toFixed(4)},{" "}
-                          {location.longitude.toFixed(4)}
+                          {location.latitude?.toFixed(4)},{" "}
+                          {location.longitude?.toFixed(4)}
                         </p>
-                        <p>Тактык: ±{location.accuracy.toFixed(1)}m</p>
+                        <p>Тактык: ±{location.accuracy?.toFixed(1)}m</p>
                       </IonLabel>
                       <IonBadge color="medium" slot="end">
-                        {location.speed.toFixed(1)}m/s
+                        {location.speed?.toFixed(1)}m/s
                       </IonBadge>
                     </IonItem>
                   ))}
