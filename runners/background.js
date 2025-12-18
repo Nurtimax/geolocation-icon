@@ -1,5 +1,7 @@
 // runners/background.js
 import { Geolocation } from "@capacitor/geolocation";
+import { updateUserProfile } from "../src/firebase/update-location";
+import { Device } from "@capacitor/device";
 
 export async function setupGeofencing() {
   try {
