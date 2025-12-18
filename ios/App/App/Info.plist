@@ -2,76 +2,204 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <!-- Для @capacitor/background-runner -->
+    <!-- ===== GEOLOCATION PERMISSIONS ===== -->
+    <!-- For @capacitor/geolocation -->
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Колдонмо жайгашкан жериңизди аныктоо үчүн геолокацияга кирүүгө муктаж</string>
+    
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Колдонмо фон режиминде иштөө үчүн дайыма геолокацияга кирүүгө муктаж</string>
+    
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Колдонмо фон режиминде иштөө үчүн дайыма геолокацияга кирүүгө муктаж</string>
+    
+    <!-- ===== BACKGROUND MODES ===== -->
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+        <string>fetch</string>
+        <string>processing</string>
+        <string>remote-notification</string>
+    </array>
+    
+    <!-- ===== BACKGROUND TASKS ===== -->
+    <!-- For @capacitor/background-runner -->
     <key>BGTaskSchedulerPermittedIdentifiers</key>
     <array>
         <string>$(PRODUCT_BUNDLE_IDENTIFIER).background-task</string>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER).background-geolocation</string>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER).location-updates</string>
+        <string>$(PRODUCT_BUNDLE_IDENTIFIER).apprefresh</string>
     </array>
     
-    <!-- Для @capacitor/geolocation -->
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Приложению требуется доступ к вашей геолокации для определения местоположения</string>
+    <!-- ===== NOTIFICATIONS ===== -->
+    <!-- For @capacitor/local-notifications -->
+    <key>UNUserNotificationCenter</key>
+    <true/>
     
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Приложению требуется постоянный доступ к вашей геолокации для работы в фоновом режиме</string>
+    <!-- For iOS 12+ notifications -->
+    <key>UNUserNotificationCenterEnabled</key>
+    <true/>
     
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Приложению требуется доступ к вашей геолокации для работы в фоновом режиме</string>
+    <!-- Notification permission description -->
+    <key>NSUserNotificationsUsageDescription</key>
+    <string>Колдонмо сизге билдирүүлөрдү жөнөтүү үчүн уруксат суранат</string>
     
-    <!-- Для стандартных iOS разрешений -->
-    <key>UIBackgroundModes</key>
-    <array>
-        <string>fetch</string>
-        <string>processing</string>
-        <string>location</string>
-        <!-- Добавьте remote-notification если используете пуш-уведомления -->
-    </array>
+    <!-- For iOS 10+ notifications -->
+    <key>UNUserNotificationCenterDelegateClass</key>
+    <string>AppDelegate</string>
     
-    <!-- Для @capacitor/status-bar (опционально) -->
+    <!-- ===== CAMERA PERMISSIONS (if needed) ===== -->
+    <key>NSCameraUsageDescription</key>
+    <string>Колдонмо сүрөт тартуу үчүн камерага кирүүгө муктаж</string>
+    
+    <!-- ===== PHOTO LIBRARY PERMISSIONS (if needed) ===== -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Колдонмо сүрөттөрдү таңдоо үчүн фото китепканага кирүүгө муктаж</string>
+    
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Колдонмо фото китепканага сүрөттөрдү сактоо үчүн кирүүгө муктаж</string>
+    
+    <!-- ===== MICROPHONE PERMISSIONS (if needed) ===== -->
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Колдонмо аудио жазуу үчүн микрофонго кирүүгө муктаж</string>
+    
+    <!-- ===== NETWORK PERMISSIONS ===== -->
+    <!-- Allow arbitrary loads (for HTTP requests) -->
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+        <key>NSAllowsArbitraryLoadsInWebContent</key>
+        <true/>
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
+    
+    <!-- ===== BLUETOOTH PERMISSIONS (if needed) ===== -->
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Колдонмо Bluetooth түзмөктөрү менен байланышуу үчүн Bluetooth кирүүгө муктаж</string>
+    
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>Колдонмо Bluetooth түзмөктөрү менен байланышуу үчүн Bluetooth кирүүгө муктаж</string>
+    
+    <!-- ===== STATUS BAR ===== -->
+    <!-- For @capacitor/status-bar (опционально) -->
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
     
-    <!-- Стандартные ключи -->
+    <!-- Status bar style -->
+    <key>UIStatusBarStyle</key>
+    <string>UIStatusBarStyleDefault</string>
+    
+    <!-- ===== STANDARD iOS KEYS ===== -->
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
+    
     <key>CFBundleDisplayName</key>
     <string>$(PRODUCT_NAME)</string>
+    
     <key>CFBundleExecutable</key>
     <string>$(EXECUTABLE_NAME)</string>
+    
     <key>CFBundleIdentifier</key>
     <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
+    
     <key>CFBundleName</key>
     <string>$(PRODUCT_NAME)</string>
+    
     <key>CFBundlePackageType</key>
     <string>APPL</string>
+    
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
+    
     <key>CFBundleVersion</key>
     <string>1</string>
+    
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    
+    <!-- ===== LAUNCH SCREEN ===== -->
     <key>UILaunchStoryboardName</key>
     <string>LaunchScreen</string>
+    
     <key>UIMainStoryboardFile</key>
     <string>Main</string>
+    
+    <!-- ===== DEVICE CAPABILITIES ===== -->
     <key>UIRequiredDeviceCapabilities</key>
     <array>
         <string>armv7</string>
     </array>
+    
+    <!-- ===== ORIENTATIONS ===== -->
     <key>UISupportedInterfaceOrientations</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    
     <key>UISupportedInterfaceOrientations~ipad</key>
     <array>
         <string>UIInterfaceOrientationPortrait</string>
         <string>UIInterfaceOrientationPortraitUpsideDown</string>
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
+    </array>
+    
+    <!-- ===== EXIT ON SUSPEND (optional) ===== -->
+    <!-- Set to false to allow background execution -->
+    <key>UIApplicationExitsOnSuspend</key>
+    <false/>
+    
+    <!-- ===== REQUIRED DEVICE CAPABILITIES ===== -->
+    <!-- Add if you need specific capabilities -->
+    <key>UIRequiredDeviceCapabilities</key>
+    <dict>
+        <key>location-services</key>
+        <true/>
+        <key>gps</key>
+        <true/>
+    </dict>
+    
+    <!-- ===== PUSH NOTIFICATIONS (if using) ===== -->
+    <key>APSEnvironment</key>
+    <string>development</string> <!-- Change to "production" for App Store -->
+    
+    <!-- ===== PRIVACY MANIFEST (iOS 17+) ===== -->
+    <!-- Add this section for iOS 17+ if needed -->
+    <key>NSPrivacyTracking</key>
+    <false/>
+    
+    <key>NSPrivacyAccessedAPITypes</key>
+    <array>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>CA92.1</string>
+            </array>
+        </dict>
+        <dict>
+            <key>NSPrivacyAccessedAPIType</key>
+            <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+            <key>NSPrivacyAccessedAPITypeReasons</key>
+            <array>
+                <string>C617.1</string>
+            </array>
+        </dict>
+    </array>
+    
+    <!-- ===== EXTERNAL ACCESSORY (if using Bluetooth/BLE) ===== -->
+    <key>UISupportedExternalAccessoryProtocols</key>
+    <array>
+        <string>com.example.protocol</string>
     </array>
 </dict>
 </plist>

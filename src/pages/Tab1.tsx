@@ -36,7 +36,7 @@ import { Geolocation } from "@capacitor/geolocation";
 import { updateUserProfile } from "../firebase/update-location";
 import { Device } from "@capacitor/device";
 
-interface LocationData {
+export interface LocationData {
   accuracy: number;
   altitude: number;
   altitudeAccuracy: number;
@@ -46,7 +46,7 @@ interface LocationData {
   speed: number;
 }
 
-interface LocationsMap {
+export interface LocationsMap {
   [timestamp: string]: LocationData;
 }
 
@@ -114,6 +114,7 @@ const Tab1: React.FC = () => {
       <IonHeader>
         <IonToolbar className="ion-padding">
           <IonTitle>Локация Tracker</IonTitle>
+          {window.location.origin}
           {locationCount > 0 && (
             <IonBadge slot="end" color="primary">
               {locationCount}
