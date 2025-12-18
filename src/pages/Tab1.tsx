@@ -44,6 +44,7 @@ export interface LocationData {
   latitude: number;
   longitude: number;
   speed: number;
+  name?: string;
 }
 
 export interface LocationsMap {
